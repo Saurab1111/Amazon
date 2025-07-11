@@ -21,9 +21,22 @@ class Product(models.Model):
             count=0
             while Product.objects.filter(slug=base_slug).exists():
                 count+=1
-                base_slug+=f'-count'
+                base_slug+=str(count)
             self.slug=base_slug
         super().save(*args,**kwargs)
     
     def __str__(self):
         return self.name
+    
+class Order(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user_id=models.CharField(max_length=100)
+    total_payment=models.DecimalField(decimal_places=10,max_digits=20)
+    order_data=models.DateTimeField(auto_now_add=True)
+    status=models.CharField(max_length=20)
+    last_updated=models.DateTimeField(auto_now=True)
+    track_number=models.BigIntegerField()
+    shipping_address=models.TextField()
+
+    # def __str__(self):
+    #     return self.product.name+" order"

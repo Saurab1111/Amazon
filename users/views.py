@@ -30,31 +30,31 @@ def login(request):
         AuthParameters={
             'USERNAME': request.data['username'],
             'PASSWORD': request.data['password'],
-            'SECRET_HASH': get_secret_hash(request.data['username'], environ['CLIENT_ID'], client_secret=environ['client_secret'])        
+            'SECRET_HASH': get_secret_hash(request.data['username'], client_id='3ref2vid0ksr0elpgqlo9qauah', client_secret=environ['client_secret'])        
             },
-            ClientId=environ['CLIENT_ID'],
+            ClientId='3ref2vid0ksr0elpgqlo9qauah',
             )
         if 'AuthenticationResult' in response:
             return Response({'success': True, 'tokens': response['AuthenticationResult']})
 
         # Step 3: Handle password challenge
         elif response.get('ChallengeName') == 'NEW_PASSWORD_REQUIRED':
-            # new_password = "Learn@2026"
-
+            print("here")
+            print(request.data['username'])
             challenge_response = client.respond_to_auth_challenge(
-                                ClientId=environ['CLIENT_ID'],
+                                ClientId='3ref2vid0ksr0elpgqlo9qauah',
                                 ChallengeName='NEW_PASSWORD_REQUIRED',
                                 ChallengeResponses={
                                 'USERNAME': request.data['username'],
-                                'NEW_PASSWORD': request.data['password'],
-                                'userAttributes.given_name': request.data['given_name'],  # ✅ correct key
-                                'SECRET_HASH': get_secret_hash(request.data['username'], environ['CLIENT_ID'], client_secret=environ['client_secret'])
+                                'NEW_PASSWORD': request.data['password']+"1",
+                                'userAttributes.given_name': request.data['username'],  # ✅ correct key
+                                'SECRET_HASH': get_secret_hash(request.data['username'], client_id='3ref2vid0ksr0elpgqlo9qauah', client_secret=environ['client_secret'])
                             },
                             Session=response['Session']
                             )
 
             # print("************************************************************************************")
-            return Response({'success': True, 'tokens': response['AuthenticationResult']})
+            return Response({'success': True, 'tokens': challenge_response['AuthenticationResult']})
 
         else:
             return Response("Success")
@@ -68,8 +68,8 @@ def login(request):
 @api_view(['POST'])
 def signup(request):
     response = client.sign_up(
-    ClientId=environ['CLIENT_ID'],
-    SecretHash=get_secret_hash(request.data['username'], environ['CLIENT_ID'], client_secret=environ['client_secret']),
+    ClientId='3ref2vid0ksr0elpgqlo9qauah',
+    SecretHash=get_secret_hash(request.data['username'], '3ref2vid0ksr0elpgqlo9qauah', client_secret=environ['client_secret']),
     Username=request.data['username'],
     Password=request.data['password'],
     UserAttributes=[
