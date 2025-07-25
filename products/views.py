@@ -22,7 +22,7 @@ class ProductList(APIView):
             serializer= ProductSerializer(objects,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
-            return Response("No product Available")
+            return Response("No product Available in list")
     
     def post(self,request):
         serializer=ProductSerializer(data=request.data)
