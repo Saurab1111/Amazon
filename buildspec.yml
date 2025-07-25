@@ -15,14 +15,10 @@ phases:
 
   build:
     commands:
-      - echo Preparing build output...
-      - mkdir build
-      - cp -r Amazon build/
-      - cp manage.py build/
-      - cp Procfile build/
-      - echo Build output prepared.
+      - echo Zipping application for deployment...
+      - zip -r build-output.zip . -x "*.git*" "*.venv*" "*__pycache__*"
 
 artifacts:
-  base-directory: build
   files:
-    - '**/*'
+    - build-output.zip
+  discard-paths: yes
