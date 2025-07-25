@@ -5,17 +5,16 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - echo Installing dependencies...
       - pip install --upgrade pip
       - pip install -r requirements.txt
 
   pre_build:
     commands:
-      - echo Pre-build complete.
+      - echo Pre-build phase done.
 
   build:
     commands:
-      - echo Build phase complete.
+      - echo Build phase done.
 
 artifacts:
   files:
