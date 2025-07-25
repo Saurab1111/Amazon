@@ -20,4 +20,6 @@ phases:
 
 artifacts:
   files:
-    - build-output.zip
+    - '**/*'
+  base-directory: build
+
