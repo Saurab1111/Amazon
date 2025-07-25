@@ -1,5 +1,6 @@
 from jose import jwt
 import requests
+import os
 from django.http import JsonResponse
 from http import HTTPStatus
 from os import environ
@@ -9,9 +10,9 @@ path=Path('F:\Workspace\Amazon\.env')
 load_dotenv(path)
 
 region = "eu-north-1"
-user_pool_id = environ['USER_POOL_ID']
+user_pool_id = os.environ.get('USER_POOL_ID')
 app_client_id = '3ref2vid0ksr0elpgqlo9qauah'
-
+print(os.environ.get('DBPASSWORD'),"ghjkhgghgh")
 def get_token(request):
     try:
         header=request.headers.get('Authorization')

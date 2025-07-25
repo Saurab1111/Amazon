@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-env_path= Path('F:\Workspace\Amazon\.env')
+env_path= Path('C:\Workspace\Amazon\.env')
 load_dotenv(env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # MySQL engine
         'NAME': 'amazon_commercial',
         'USER': 'admin',
-        'PASSWORD': os.getenv('DBPASSWORD'),
+        'PASSWORD': os.environ.get('DBPASSWORD'),
         'HOST': 'amazon-commercials.c1k44c8s65ih.eu-north-1.rds.amazonaws.com',
         'PORT': '3306',
     }
