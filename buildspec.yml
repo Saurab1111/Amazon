@@ -11,14 +11,12 @@ phases:
 
   pre_build:
     commands:
-      - echo Pre-build phase complete.
+      - echo Pre-build complete.
 
   build:
     commands:
-      - echo Zipping application for deployment...
-      - zip -r build-output.zip . -x "*.git*" "*.venv*" "*__pycache__*"
+      - echo Build phase complete.
 
 artifacts:
   files:
-    - build-output.zip
-  discard-paths: yes
+    - '**/*'
