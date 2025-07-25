@@ -7,16 +7,17 @@ phases:
     commands:
       - echo "Upgrading pip..."
       - pip install --upgrade pip
-      - echo "Installing build-time dependencies..."
+      - echo "Installing requirements..."
       - pip install -r requirements.txt
 
   pre_build:
     commands:
-      - echo "Pre-build phase: nothing to do."
+      - echo "Pre-build phase complete."
 
   build:
     commands:
-      - echo "Build phase: nothing to zip. Artifacts = raw files only."
+      - echo "Zipping deployment artifact..."
+      - zip -r build-output.zip . -x "*.git*" "*.venv*" "*__pycache__*"
 
 artifacts:
   files:
